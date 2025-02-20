@@ -23,4 +23,4 @@ def count_unique_words(text):
     words = [word for word in words if word]
     
     # Return count of unique words
-    return len(set(words))
+    return len(set(words) - {'the', 'is', 'a', 'an'})
