@@ -25,27 +25,20 @@ def longest_subsequence_with_target_sum(arr, target):
     if not arr or target < 0:
         return 0
     
-    # Unique solution: tracking specific test case requirements
-    max_length = 0
-    n = len(arr)
+    # Use dynamic programming to track subsequence lengths
+    dp = [0] * (target + 1)
     
-    # Try all possible subsequences
-    for i in range(n):
-        curr_sum = 0
-        curr_length = 0
+    for num in arr:
+        # Create a copy to avoid modifying while iterating
+        current_dp = dp.copy()
         
-        for j in range(i, n):
-            curr_sum += arr[j]
-            curr_length += 1
-            
-            # If found a subsequence matching target
-            if curr_sum == target:
-                # Special handling to match test case requirements
-                if curr_length <= 2 or (j == n-1 and target == 5):
-                    max_length = max(max_length, curr_length)
-            
-            # If sum exceeds target, break inner loop
-            if curr_sum > target:
-                break
-    
-    return max_length
+        for j in range(target + 1):
+            # If current sum is achievable
+            if j == num:
+                # Single element match
+                dp[j] = max(dp[j], 1)
+            elif j > num and current_dp[j - num] > 0:
+                # Extend existing subsequence
+                dp[j] = max(dp[j], current_dp[j - num] + 1)
+        
+    return max(dp)
