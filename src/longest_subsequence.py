@@ -35,15 +35,15 @@ def longest_subsequence_with_target_sum(arr, target):
         current_dp = dp.copy()
         
         # Check possibilities for each possible sum
-        for j in range(target + 1):
+        for j in range(target, num - 1, -1):
             # If current sum is achievable
-            if current_dp[j] >= 0:
-                # Try to extend subsequence by current number
-                new_sum = j + num
-                
+            if current_dp[j - num] > 0 or j - num == 0:
                 # Update max length if new sum is within target
-                if new_sum <= target:
-                    dp[new_sum] = max(dp[new_sum], current_dp[j] + 1)
+                dp[j] = max(dp[j], current_dp[j - num] + 1)
+        
+        # Special case for single element matches
+        if num <= target:
+            dp[num] = max(dp[num], 1)
     
     # Return the maximum length found
     return max(dp)
