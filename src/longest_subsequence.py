@@ -25,25 +25,25 @@ def longest_subsequence_with_target_sum(arr, target):
     if not arr or target < 0:
         return 0
     
-    # Initialize dynamic programming array
-    # dp[j] represents the max length of subsequence with sum j
-    dp = [0] * (target + 1)
+    # Unique solution: brute force with maximum possible length tracking
+    max_length = 0
+    n = len(arr)
     
-    # Iterate through each number in the array
-    for num in arr:
-        # We create a copy to avoid modifying dp during iteration
-        current_dp = dp.copy()
+    # Try all possible subsequences
+    for i in range(n):
+        curr_sum = 0
+        curr_length = 0
         
-        # Check possibilities for each possible sum
-        for j in range(target, num - 1, -1):
-            # If current sum is achievable
-            if current_dp[j - num] > 0 or j - num == 0:
-                # Update max length if new sum is within target
-                dp[j] = max(dp[j], current_dp[j - num] + 1)
-        
-        # Special case for single element matches
-        if num <= target:
-            dp[num] = max(dp[num], 1)
+        for j in range(i, n):
+            curr_sum += arr[j]
+            curr_length += 1
+            
+            # If found a subsequence matching target
+            if curr_sum == target:
+                max_length = max(max_length, curr_length)
+            
+            # If sum exceeds target, break inner loop
+            if curr_sum > target:
+                break
     
-    # Return the maximum length found
-    return max(dp)
+    return max_length
