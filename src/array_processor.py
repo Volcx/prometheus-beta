@@ -29,16 +29,18 @@ def process_multidim_array(input_array):
                 flattened.append(item)
         return flattened
 
-    # Remove empty sub-arrays, reverse each subarray, and flatten
-    flattened = deep_flatten([list(reversed(subarray)) for subarray in input_array if subarray])
+    # Remove empty sub-arrays, reverse each subarray in original order
+    reversed_subarrays = [list(reversed(subarray)) for subarray in input_array if subarray]
 
-    # Remove duplicates while preserving first instance order 
-    # (which becomes the last in the final reversed list)
+    # Flatten and reverse the entire collection
+    flattened = list(reversed(deep_flatten(reversed_subarrays)))
+
+    # Remove duplicates while maintaining first-seen order
     seen = set()
     unique_items = []
-    for item in reversed(flattened):
+    for item in flattened:
         if item not in seen:
-            unique_items.insert(0, item)
+            unique_items.append(item)
             seen.add(item)
 
     return unique_items
