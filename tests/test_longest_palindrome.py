@@ -32,7 +32,8 @@ def test_long_palindromes():
 
 def test_unicode_support():
     """Test unicode character support"""
-    assert longest_palindromic_substring("πορωπ") == "πορωπ"
+    result = longest_palindromic_substring("πορωπ")
+    assert result == "πορωπ", f"Expected 'πορωπ', but got '{result}'"
 
 def test_repeated_characters():
     """Test strings with repeated characters"""
