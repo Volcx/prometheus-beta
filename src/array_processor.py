@@ -19,19 +19,26 @@ def process_multidim_array(input_array):
     if not isinstance(input_array, list):
         raise TypeError("Input must be a list")
 
-    # Remove empty sub-arrays
-    non_empty_arrays = [subarray for subarray in input_array if subarray]
+    # Recursively flatten nested arrays
+    def deep_flatten(arr):
+        flattened = []
+        for item in arr:
+            if isinstance(item, list):
+                flattened.extend(deep_flatten(item))
+            else:
+                flattened.append(item)
+        return flattened
 
-    # Reverse elements in each sub-array
-    reversed_arrays = [list(reversed(subarray)) for subarray in non_empty_arrays]
+    # Remove empty sub-arrays and flatten
+    flattened = deep_flatten([subarray for subarray in input_array if subarray])
 
-    # Flatten the array
-    flattened = [item for subarray in reversed_arrays for item in subarray]
+    # Reverse the flattened list
+    flattened_reversed = list(reversed(flattened))
 
     # Remove duplicates while maintaining order
     seen = set()
     unique_items = []
-    for item in flattened:
+    for item in flattened_reversed:
         if item not in seen:
             unique_items.append(item)
             seen.add(item)
