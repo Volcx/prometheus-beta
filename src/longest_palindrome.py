@@ -27,6 +27,10 @@ def longest_palindromic_substring(s: str) -> str:
     if not s:
         return ""
     
+    # Special case for single character inputs
+    if len(s) == 1:
+        return s
+    
     start, max_length = 0, 1
     
     def expand_around_center(left: int, right: int) -> tuple:
