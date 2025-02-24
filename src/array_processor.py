@@ -29,16 +29,19 @@ def process_multidim_array(input_array):
                 flattened.append(item)
         return flattened
 
-    # Prepare arrays with strategic reversals
+    # Reverse the entire input array
+    reversed_input = list(reversed(input_array))
+
+    # Prepare transformed subarrays
     prepared_arrays = []
-    for arr in reversed(input_array):
+    for arr in reversed_input:
         if arr:  # Skip empty subarrays
             prepared_arrays.append(list(reversed(arr)))
 
     # Flatten the prepared arrays
     flattened = deep_flatten(prepared_arrays)
 
-    # Remove duplicates with specific order preservation logic
+    # Remove duplicates with order based on first occurrence
     seen = set()
     unique_items = []
     for item in flattened:
