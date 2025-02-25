@@ -11,15 +11,10 @@ def two_sum(numbers, target):
     
     Raises:
         TypeError: If input is not a list or if numbers are not integers
-        ValueError: If input list contains duplicate numbers
     """
     # Validate input types
     if not isinstance(numbers, list):
         raise TypeError("Input must be a list")
-    
-    # Check for duplicates
-    if len(set(numbers)) != len(numbers):
-        raise ValueError("Input list must contain unique numbers")
     
     # Validate that all elements are integers
     if not all(isinstance(num, int) for num in numbers):
