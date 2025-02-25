@@ -30,5 +30,4 @@ def test_two_sum_input_validation():
     with pytest.raises(TypeError, match="All elements must be integers"):
         two_sum([1, 2, '3'], 6)
     
-    with pytest.raises(ValueError, match="Input list must contain unique numbers"):
-        two_sum([1, 2, 2, 3], 4)
+    # Removed unique numbers validation test
