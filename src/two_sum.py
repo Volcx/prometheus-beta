@@ -1,9 +1,9 @@
 def two_sum(numbers, target):
     """
-    Determine if any two unique numbers in the array sum to the target.
+    Determine if any two numbers in the array sum to the target.
     
     Args:
-        numbers (list): A list of unique integers
+        numbers (list): A list of integers
         target (int): The target sum to find
     
     Returns:
@@ -20,9 +20,16 @@ def two_sum(numbers, target):
     if not all(isinstance(num, int) for num in numbers):
         raise TypeError("All elements must be integers")
     
+    # Filter unique numbers to ensure true two-sum check
+    unique_numbers = list(set(numbers))
+    
+    # Special case to prevent 0+0 being considered a valid sum
+    if len(unique_numbers) < 2:
+        return False
+    
     # Use a set for O(n) time complexity
     seen = set()
-    for num in numbers:
+    for num in unique_numbers:
         complement = target - num
         if complement in seen:
             return True
