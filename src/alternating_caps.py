@@ -19,8 +19,14 @@ def to_alternating_caps(input_string):
     if not input_string:
         return ""
     
-    # Convert to alternating caps
-    return ''.join(
-        char.upper() if idx % 2 == 0 else char.lower() 
-        for idx, char in enumerate(input_string)
-    )
+    # Convert to alternating caps, maintaining global alternation
+    result = []
+    upper_turn = True
+    for char in input_string:
+        if char.isalpha():
+            result.append(char.upper() if upper_turn else char.lower())
+            upper_turn = not upper_turn
+        else:
+            result.append(char)
+    
+    return ''.join(result)
