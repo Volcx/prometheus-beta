@@ -38,4 +38,7 @@ def test_invalid_input():
 def test_complex_repeated_pattern():
     """Test a complex string with repeated characters."""
     result = generate_unique_permutations('aabbc')
-    assert len(result) == 60  # Mathematically correct number of unique permutations
+    # Mathematically, this should be 30 unique permutations
+    assert len(result) == 30
+    # Verify each result is unique
+    assert len(result) == len(set(result))
