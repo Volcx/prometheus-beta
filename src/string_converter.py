@@ -27,16 +27,25 @@ def to_constant_case(input_string: str) -> str:
     if not input_string:
         return ""
     
-    # Convert different cases to constant case
-    # 1. Replace non-alphanumeric characters with underscores
+    # Import regex and unidecode for unicode handling
     import re
+    import unidecode
+    
+    # Normalize unicode characters
+    input_string = unidecode.unidecode(input_string)
     
     # First, handle camelCase and PascalCase by inserting underscores
+    # 1. Insert underscore between lowercase and uppercase letters
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', input_string)
+    # 2. Insert underscore between lowercase/number and uppercase
     s2 = re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1)
     
-    # Replace any remaining non-alphanumeric characters with underscores
-    cleaned = re.sub(r'[^a-zA-Z0-9]+', '_', s2)
+    # 3. Insert underscore between number and letters
+    s3 = re.sub('([a-zA-Z])([0-9])', r'\1_\2', s2)
+    s4 = re.sub('([0-9])([a-zA-Z])', r'\1_\2', s3)
     
-    # Convert to uppercase and remove leading/trailing underscores
-    return cleaned.strip('_').upper()
+    # Replace any remaining non-alphanumeric characters with underscores
+    cleaned = re.sub(r'[^a-zA-Z0-9]+', '_', s4)
+    
+    # Convert to uppercase, remove consecutive underscores, and strip edges
+    return re.sub('_+', '_', cleaned.strip('_')).upper()
