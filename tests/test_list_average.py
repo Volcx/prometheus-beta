@@ -34,4 +34,4 @@ def test_non_numeric_list_raises_error():
 
 def test_mixed_numeric_types():
     """Test average calculation with mixed numeric types."""
-    assert calculate_average([1, 2.5, 3]) == 2.166666666666667
+    assert calculate_average([1, 2.5, 3]) == pytest.approx(2.1666666666666665)
