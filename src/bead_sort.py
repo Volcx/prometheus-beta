@@ -38,14 +38,14 @@ def bead_sort(arr):
     
     # Simulate gravity (dropping beads)
     for col in range(max_num):
-        # Count 'beads' in each column from top to bottom
-        col_count = sum(row[max_num - 1 - col] for row in beads)
+        # Count 'beads' in each column from bottom to top
+        col_count = sum(row[col] for row in beads)
         
         # Drop the beads to the bottom
-        for row in range(len(beads)):
-            # Set top beads first
-            beads[row][max_num - 1 - col] = 1 if col_count > 0 else 0
-            col_count -= beads[row][max_num - 1 - col]
+        for row in range(len(beads) - 1, -1, -1):
+            # Set bottom beads first
+            beads[row][col] = 1 if col_count > 0 else 0
+            col_count -= beads[row][col]
     
     # Reconstruct the sorted list
     sorted_arr = [sum(row) for row in beads]
