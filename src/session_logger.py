@@ -1,5 +1,6 @@
 import json
 import os
+import copy
 from datetime import datetime
 from typing import Dict, Any, Optional
 
@@ -85,6 +86,6 @@ class SessionLogger:
         Retrieve the current session data.
         
         Returns:
-            Dict[str, Any]: Current session data
+            Dict[str, Any]: Deep copy of current session data
         """
-        return self.session_data.copy()
+        return copy.deepcopy(self.session_data)
